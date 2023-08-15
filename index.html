@@ -19,7 +19,8 @@
         var currentWord = '____'
         var guess = "null"
         const guessElement = document.getElementById('showGuess');
-        const inputElement = document.getElementById('guessInput')
+        const inputElement = document.getElementById('guessInput');
+        const RoWElement = document.getElementById('RoW');
         
         function checkEnter(event) {
             if (event.key === "Enter") {
@@ -37,10 +38,10 @@
         function evaluateHangman() {
             const index = secretWord.indexOf(guess);
             if (index == -1) {
-                document.getElementById('RoW').innerHTML = 'feil';
+                RoWElement.innerHTML = 'feil';
                 return;
             }
-            else {document.getElementById('RoW').innerHTML = 'riktig';}
+            else {RoWElement.innerHTML = 'riktig';}
             const part1 = currentWord.substring(0, index);
             const part2 = guess
             const part3 = currentWord.substring(index + 1);
@@ -57,8 +58,9 @@
 
         function win(){
             alert('Gratulerer! Du greide det');
+            RoWElement.innerHTML = 'Gratulerer!'
         }
-        
+
         guessElement.innerHTML = currentWord;
     </script>
 </body>
