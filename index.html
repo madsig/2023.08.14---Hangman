@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman</title>
+</head>
+<body>
+    <div>
+        <h2>Hangman</h2>
+        <p id="showGuess"></p>
+        <label for="guessInput">Gjett en bokstav:</label><br/>
+        <input type="text" id="guessInput" maxlength="1" onkeyup="checkEnter(event)">
+        <div id="RoW"></div>
+
+    </div>
+    <script>
+        const secretWord = 'MADS'
+        var currentWord = '____'
+        var guess = "null"
+        const guessElement = document.getElementById('showGuess');
+        const inputElement = document.getElementById('guessInput')
+        
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                processInput();
+                evaluateHangman();
+            }
+            
+        }
+
+        function processInput() {
+            guess = inputElement.value.toUpperCase();
+            console.log(guess);
+        }
+
+        function evaluateHangman() {
+            const index = secretWord.indexOf(guess);
+            if (index == -1) {
+                document.getElementById('RoW').innerHTML = 'feil';
+                return;
+            }
+            else {document.getElementById('RoW').innerHTML = 'riktig';}
+            const part1 = currentWord.substring(0, index);
+            const part2 = guess
+            const part3 = currentWord.substring(index + 1);
+            currentWord = part1 + part2 + part3;
+            checkWin();
+        }
+
+        function checkWin() {
+            guessElement.innerHTML = currentWord;
+            if (currentWord == secretWord) {
+                setTimeout(win, 700);
+            }
+        }
+
+        function win(){
+            alert('Gratulerer! Du greide det');
+        }
+        
+        guessElement.innerHTML = currentWord;
+    </script>
+</body>
+</html>
