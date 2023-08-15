@@ -15,8 +15,8 @@
 
     </div>
     <script>
-        const secretWord = 'MADS'
-        let currentWord = '____'
+        const secretWord = 'GETACADEMY'
+        let currentWord = '__________'
         let guess = "null"
         const guessElement = document.getElementById('showGuess');
         const inputElement = document.getElementById('guessInput');
@@ -35,17 +35,40 @@
             console.log(guess);
         }
 
+        // function evaluateHangman() {
+        //     const index = secretWord.indexOf(guess);
+        //     if (index === -1) {
+        //         RoWElement.innerHTML = 'feil';
+        //         return currentWord;
+        //     }
+        //     else {RoWElement.innerHTML = 'riktig';}
+        //     const part1 = currentWord.substring(0, index);
+        //     const part2 = guess
+        //     const part3 = currentWord.substring(index + 1);
+        //     const secretPart3 = secretWord.substring(index + 1);
+        //     currentWord = part1 + part2 + evaluateHangman(secretPart3, part3, guess);
+        //     checkWin();
+        // }
+
         function evaluateHangman() {
-            const index = secretWord.indexOf(guess);
-            if (index == -1) {
+            const indices = [];
+            for (let i = 0; i < secretWord.length; i++) {
+                if (secretWord[i] === guess) {
+                    indices.push(i);
+                }
+            }
+
+            if (indices.length === 0) {
                 RoWElement.innerHTML = 'feil';
                 return;
+            } else {
+                RoWElement.innerHTML = 'riktig';
             }
-            else {RoWElement.innerHTML = 'riktig';}
-            const part1 = currentWord.substring(0, index);
-            const part2 = guess
-            const part3 = currentWord.substring(index + 1);
-            currentWord = part1 + part2 + part3;
+
+            for (const index of indices) {
+                currentWord = currentWord.substring(0, index) + guess + currentWord.substring(index + 1);
+            }
+
             checkWin();
         }
 
